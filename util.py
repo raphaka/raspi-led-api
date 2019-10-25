@@ -1,0 +1,14 @@
+import json
+
+def read_json(input):
+        print(input + 'stuff')
+        with open(input, 'r') as infile:
+                return json.loads(infile.read())
+
+def hex2rgb(str_colorhex):
+        r=int(str_colorhex[0:2],16)
+        g=int(str_colorhex[2:4],16)
+        b=int(str_colorhex[4:6],16)
+        return r,g,b
+		
+config = read_json('config.json')                
