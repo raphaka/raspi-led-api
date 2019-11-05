@@ -5,6 +5,7 @@ if __name__ == "__main__":
 
 
 #TODO
+#auto start pigpiod and exit, if not running
 #set different dev Environments, which enable/disable gpio
 #check if sending exit to localhost still works for stopping stream mode
 #general error handling

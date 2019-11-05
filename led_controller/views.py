@@ -13,6 +13,7 @@ log = logging.getLogger(__name__)
 
 #listens on udp port for colors to set in realtime
 #sends udp packet to localhost socket => stream mode restarts if running 
+#TODO Error handling
 @app.route('/set/stream')
 def stream():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)    #send exit command to stream mode so it exits if it is running before
@@ -25,6 +26,7 @@ def stream():
 
 #sets color from requested ressource
 #sends udp packet to localhost socket => stream mode terminates if running 
+#TODO Error handling
 @app.route('/set/colorhex/<hexcode>')
 def colorhex(hexcode):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)    #send exit command to stream mode so it exits if it is running before
@@ -36,7 +38,6 @@ def colorhex(hexcode):
 
 #GET: return array of colors
 #POST: Add new color
-#TODO: Handle headers wrong content type
 @app.route('/colors', methods = ['GET', 'POST', 'DELETE'])
 def list_fav_colors():
     #add new color

@@ -1,5 +1,6 @@
 import json
 
+#TODO Error Handling
 def read_json(input):
         with open(input, 'r') as infile:
                 return json.loads(infile.read())

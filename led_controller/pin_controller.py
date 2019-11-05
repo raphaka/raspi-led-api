@@ -1,13 +1,15 @@
 import logging
 import socket
-#import pigpio
+import pigpio
 
 from led_controller.util import hex_2_rgb, Glob
 log = logging.getLogger(__name__)
 
-#pi=pigpio.pi()
+if Glob.config['pins_enabled']:
+    pi=pigpio.pi()
 
 #start stream mode on UDP port and change color in realtime
+#TODO Error Handling
 def stream_thread():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind(("", Glob.config['udp_port']))
@@ -28,8 +30,10 @@ def set_color_by_hex(colorhex):
 #set gpio values according to rgb-color 
 def set_color(red,green,blue):
     msg= 'r={0}, g={1}, b={2}'.format(red,green,blue)
-    print(msg)
-    #pi.set_PWM_dutycycle(pin_red,red)
-    #pi.set_PWM_dutycycle(pin_green,green)
-    #pi.set_PWM_dutycycle(pin_blue,blue)
+    if Glob.config['pins_enabled']:
+        pi.set_PWM_dutycycle(pin_red,red)
+        pi.set_PWM_dutycycle(pin_green,green)
+        pi.set_PWM_dutycycle(pin_blue,blue)
+    else:
+        print(msg)
     return msg
