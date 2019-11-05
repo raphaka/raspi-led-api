@@ -1,0 +1,5 @@
+*.log
+notes.txt
+__pycache__/*
+led_controller/colors.db
+colors.db
