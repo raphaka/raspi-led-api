@@ -11,5 +11,5 @@ def hex_2_rgb(str_colorhex):
         b=int(str_colorhex[4:6],16)
         return r,g,b
 
-class Glob(object):		
+class Glob(object):
         config = {}
