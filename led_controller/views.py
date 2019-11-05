@@ -1,12 +1,11 @@
 import logging
 import socket
 import threading
-import json
 from flask import request, jsonify
 
 from led_controller.util import hex_2_rgb,Glob
 from led_controller.pin_controller import set_color_by_hex,stream_thread
-from led_controller.models import Color
+from led_controller.models import Color, ColorSchema
 from led_controller import app,db
 
 log = logging.getLogger(__name__)
@@ -69,7 +68,7 @@ def list_fav_colors():
         if not item_name and not item_id:
             return response('failed', 'No name or id attribute found', 400)
         #delete record from database
-        try:
+        try: #TODO: error message when not found in db
             if item_id:
                 c = db.session.query(Color).get(item_id)
             elif item_name:
@@ -83,5 +82,7 @@ def list_fav_colors():
     #list existing colors
     else:
         dictc = {}
-        dictc["colors"]=db.session.query(Color).all()
-        return str(dictc) #TODO: NO VALID JSON
+        recs=db.session.query(Color).all()
+        #Convert Records class from Color to dictionaries
+        dictc['colors'] = ColorSchema(many=True).dump(recs) 
+        return jsonify(dictc)

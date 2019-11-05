@@ -1,5 +1,4 @@
-from led_controller import db
-import json
+from led_controller import db, ma
 
 class Color(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -12,4 +11,8 @@ class Color(db.Model):
            'name':self.name,
            'value':self.value
         }
-        return json.dumps(color_json)
+        return color_json
+
+class ColorSchema(ma.ModelSchema):
+    class Meta:
+        model = Color
