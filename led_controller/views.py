@@ -1,7 +1,8 @@
 import logging
 import socket
 import threading
-from flask import request
+import json
+from flask import request, jsonify
 
 from led_controller.util import hex_2_rgb,Glob
 from led_controller.pin_controller import set_color_by_hex,stream_thread
@@ -23,7 +24,6 @@ def stream():
     return "success"
 
 
-#TODO: rename
 #sets color from requested ressource
 #sends udp packet to localhost socket => stream mode terminates if running 
 @app.route('/set/colorhex/<hexcode>')
@@ -37,20 +37,51 @@ def colorhex(hexcode):
 
 #GET: return array of colors
 #POST: Add new color
-#DELETE: TODO
-@app.route('/colors', methods = ['GET', 'POST'])
+#TODO: Handle headers wrong content type
+@app.route('/colors', methods = ['GET', 'POST', 'DELETE'])
 def list_fav_colors():
     #add new color
     if request.method == 'POST':
-        data=request.get_json()
+        #check content type and json syntax
+        if not request.content_type == 'application/json':
+            return response('failed', 'Content-type must be application/json', 401)
+        data = request.get_json()
+        item_name = data.get('name')
+        item_value = data.get('value')
+        if not item_name or not item_value:
+            return response('failed', 'Name or value attribute not found', 400)
+        #insert new record in database
         try: #TODO update if existing
-            db.session.add(Color(name=data['name'], value=data['value']))
+            db.session.add(Color(name=item_name, value=item_value))
             db.session.commit()
         except:
             log.error('Could not insert new color into database')
             return 'fail' 
         return 'success'
+    #delete color
+    if request.method == 'DELETE':
+        #check content type and json syntax
+        if not request.content_type == 'application/json':
+            return response('failed', 'Content-type must be application/json', 401)
+        data=request.get_json()
+        item_name = data.get('name')
+        item_id = data.get('id')
+        if not item_name and not item_id:
+            return response('failed', 'No name or id attribute found', 400)
+        #delete record from database
+        try:
+            if item_id:
+                c = db.session.query(Color).get(item_id)
+            elif item_name:
+                c = db.session.query(Color).get(item_name)
+            db.session.delete(c)
+            db.session.commit()
+        except:
+            log.error('Could not delete color from database')
+            return 'failed' 
+        return "success"
     #list existing colors
     else:
-        colors = Color.query.all()
-        return colors
+        dictc = {}
+        dictc["colors"]=db.session.query(Color).all()
+        return str(dictc) #TODO: NO VALID JSON

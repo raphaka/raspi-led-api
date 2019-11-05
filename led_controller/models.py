@@ -1,4 +1,5 @@
 from led_controller import db
+import json
 
 class Color(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -7,8 +8,8 @@ class Color(db.Model):
 
     def __repr__(self):
         color_json = {
-            'id':self.id,
-            'name':self.name,
-            'value':self.value
+           'id':self.id,
+           'name':self.name,
+           'value':self.value
         }
-        return color_json
+        return json.dumps(color_json)

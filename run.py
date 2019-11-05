@@ -8,7 +8,6 @@ if __name__ == "__main__":
 #set different dev Environments, which enable/disable gpio
 #check if sending exit to localhost still works for stopping stream mode
 #general error handling
-#tabs to spaces
 #general python naming conventions refactoring PEP8
 #add settings page
 #add effect (list of dict) number, name, json

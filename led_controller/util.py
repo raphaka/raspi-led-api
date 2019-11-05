@@ -1,7 +1,6 @@
 import json
 
 def read_json(input):
-        print('readjson '+ input)
         with open(input, 'r') as infile:
                 return json.loads(infile.read())
 
