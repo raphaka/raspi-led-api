@@ -1,0 +1,24 @@
+/colors GET
+/colors POST
+/colors DELETE
+
+/set/effect
+/set/colorhex
+/set/stream
+(exit by setting static color)
+
+
+get programms
+
+add programm
+/program
+del programm
+/program/id
+mod programm
+/program/id
+
+set program
+/program/start
+
+
+
