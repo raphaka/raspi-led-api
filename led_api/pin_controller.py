@@ -5,8 +5,9 @@ import pigpio
 from led_api.util import hex_2_rgb, Glob
 log = logging.getLogger(__name__)
 
-if Glob.config['pins_enabled']:
-    pi=pigpio.pi()
+def start_pigpio():
+    if Glob.config['pins_enabled']:
+        pi=pigpio.pi()
 
 #start stream mode on UDP port and change color in realtime
 #TODO Error Handling
