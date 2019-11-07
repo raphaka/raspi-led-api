@@ -5,7 +5,10 @@ import pigpio
 from led_api.util import hex_2_rgb, Glob
 log = logging.getLogger(__name__)
 
+global pi
+
 def start_pigpio():
+    global pi
     if Glob.config['pins_enabled']:
         pi=pigpio.pi()
 
@@ -30,6 +33,7 @@ def set_color_by_hex(colorhex):
 
 #set gpio values according to rgb-color 
 def set_color(red,green,blue):
+    global pi
     msg= 'r={0}, g={1}, b={2}'.format(red,green,blue)
     if Glob.config['pins_enabled']:
         pi.set_PWM_dutycycle(pin_red,red)
