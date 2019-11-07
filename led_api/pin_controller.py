@@ -36,9 +36,9 @@ def set_color(red,green,blue):
     global pi
     msg= 'r={0}, g={1}, b={2}'.format(red,green,blue)
     if Glob.config['pins_enabled']:
-        pi.set_PWM_dutycycle(pin_red,red)
-        pi.set_PWM_dutycycle(pin_green,green)
-        pi.set_PWM_dutycycle(pin_blue,blue)
+        pi.set_PWM_dutycycle(Glob.config['pin_red'],red)
+        pi.set_PWM_dutycycle(Glob.config['pin_green'],green)
+        pi.set_PWM_dutycycle(Glob.config['pin_blue'],blue)
     else:
         print(msg)
     return msg
