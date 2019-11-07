@@ -2,7 +2,7 @@ import logging
 import socket
 import pigpio
 
-from led_controller.util import hex_2_rgb, Glob
+from led_api.util import hex_2_rgb, Glob
 log = logging.getLogger(__name__)
 
 if Glob.config['pins_enabled']:

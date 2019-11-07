@@ -1,4 +1,4 @@
-# raspi-led-controller
+# raspi-led-api
 
 A REST-API to control your SMD5050 light strips on your Raspberry Pi.
 It features different modes:

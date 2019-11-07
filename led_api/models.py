@@ -1,4 +1,4 @@
-from led_controller import db, ma
+from led_api import db, ma
 
 class Color(db.Model):
     id = db.Column(db.Integer, primary_key=True)

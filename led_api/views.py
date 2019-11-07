@@ -3,10 +3,10 @@ import socket
 import threading
 from flask import request, jsonify
 
-from led_controller.util import hex_2_rgb,Glob
-from led_controller.pin_controller import set_color_by_hex,stream_thread
-from led_controller.models import Color, ColorSchema
-from led_controller import app,db
+from led_api.util import hex_2_rgb,Glob
+from led_api.pin_controller import set_color_by_hex,stream_thread
+from led_api.models import Color, ColorSchema
+from led_api import app,db
 
 log = logging.getLogger(__name__)
 
