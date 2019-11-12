@@ -1,9 +1,13 @@
 import json
+import sys
 
-#TODO Error Handling
 def read_json(input):
+    try:
         with open(input, 'r') as infile:
                 return json.loads(infile.read())
+    except:
+        print('ERROR: Could not load config file')
+        sys.exit()
 
 def hex_2_rgb(str_colorhex):
         r=int(str_colorhex[0:2],16)

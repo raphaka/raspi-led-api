@@ -13,12 +13,14 @@ def start_pigpio():
         pi=pigpio.pi()
 
 #start stream mode on UDP port and change color in realtime
-#TODO Error Handling
 def stream_thread():
-    print('started stream')
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.bind(("", Glob.config['udp_port']))
-    log.info ("Stream mode waiting on port:"+ str(Glob.config['udp_port']))
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.bind(("", Glob.config['udp_port']))
+        log.info ("Stream mode waiting on port:"+ str(Glob.config['udp_port']))
+    except:
+        log.error('could not start stream thread on udp port')
+        return 1
     while 1:
         str_color, addr = s.recvfrom(1024)
         str_color = str_color.decode()
