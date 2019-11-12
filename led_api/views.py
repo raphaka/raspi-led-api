@@ -37,10 +37,11 @@ def colorhex(hexcode):
 
 
 #GET: return array of colors
-#POST: Add new color
+#POST: Add new color or update if existing
+#DELETE: Delete color from database
 @app.route('/colors', methods = ['GET', 'POST', 'DELETE'])
 def list_fav_colors():
-    #add new color
+    #add or update new color
     if request.method == 'POST':
         #check content type and json syntax
         if not request.content_type == 'application/json':
@@ -50,9 +51,13 @@ def list_fav_colors():
         item_value = data.get('value')
         if not item_name or not item_value:
             return response('failed', 'Name or value attribute not found', 400)
-        #insert new record in database
-        try: #TODO update if existing
-            db.session.add(Color(name=item_name, value=item_value))
+        #insert new record in database or update if exists
+        try: 
+            col=db.session.query(Color).filter_by(name=item_name).first()
+            if col:
+                col.value = item_value
+            else:
+                db.session.add(Color(name=item_name, value=item_value))
             db.session.commit()
         except:
             log.error('Could not insert new color into database')
@@ -69,13 +74,17 @@ def list_fav_colors():
         if not item_name and not item_id:
             return response('failed', 'No name or id attribute found', 400)
         #delete record from database
-        try: #TODO: error message when not found in db
+        try:
             if item_id:
                 c = db.session.query(Color).get(item_id)
             elif item_name:
-                c = db.session.query(Color).get(item_name)
-            db.session.delete(c)
-            db.session.commit()
+                c = db.session.query(Color).filter_by(name=item_name).first()
+            if c:
+                db.session.delete(c)
+                db.session.commit()
+            else:
+                log.error("Could not delete color from database: Color didn't exist")
+                return "failed: Color didn't exist in database"
         except:
             log.error('Could not delete color from database')
             return 'failed' 
@@ -83,7 +92,7 @@ def list_fav_colors():
     #list existing colors
     else:
         dictc = {}
-        recs=db.session.query(Color).all()
+        recs = db.session.query(Color).all()
         #Convert Records class from Color to dictionaries
         dictc['colors'] = ColorSchema(many=True).dump(recs) 
         return jsonify(dictc)
