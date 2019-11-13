@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config.from_pyfile('flask_config.cfg')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)   #Wrapper to make SQLalchemy objects JSON Serializable
-from led_api import views
+from led_api.views import colors,setpins,settings
 
 Glob.config = read_json('config.json')
 logging.basicConfig(filename=Glob.config['log_file'],level=logging.DEBUG,

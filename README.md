@@ -6,6 +6,8 @@ It features different modes:
 * Stream Mode: Set hexadecimal color information from a UDP port for better performance in ambilight effects
 
 # Setting up the light strips
-A tutorial on how to install the light strips on your Raspberry pi con be found here:
+A tutorial on how to install the light strips on your Raspberry pi can be found here:
+
 https://dordnung.de/raspberrypi-ledstrip/
+
 It is available in German and English.

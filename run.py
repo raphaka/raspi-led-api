@@ -5,7 +5,6 @@ if __name__ == "__main__":
 
 
 #TODO
-#general error handling
 #general python naming conventions refactoring PEP8
 #add settings page
 #add effect (list of dict) number, name, json
