@@ -65,7 +65,7 @@ def list_fav_colors():
     #list existing colors
     else:
         dictc = {}
-        recs = Color. db.session.query(Color).all()
+        recs = db.session.query(Color).all()
         #Convert Records class from Color to dictionaries
         dictc['colors'] = ColorSchema(many=True).dump(recs) 
         return jsonify(dictc)
