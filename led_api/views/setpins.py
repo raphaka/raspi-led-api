@@ -3,7 +3,7 @@ import socket
 import threading
 
 from led_api.util import Glob
-from led_api.pin_controller import set_color_by_hex
+from led_api.pin_controller import set_color_by_hex, stream_thread
 from led_api import app,db
 log = logging.getLogger(__name__)
 
