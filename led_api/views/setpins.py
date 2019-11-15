@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 #listens on udp port for colors to set in realtime
 #sends udp packet to localhost socket => stream mode restarts if running 
 @app.route('/set/stream')
-def stream():
+def res_stream():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)    #send exit command to stream mode so it exits if it is running before
         s.sendto('exit'.encode(), ("127.0.0.1", Glob.config['udp_port']))
@@ -26,7 +26,7 @@ def stream():
 #sets color from requested ressource
 #sends udp packet to localhost socket => stream mode terminates if running 
 @app.route('/set/colorhex/<hexcode>')
-def colorhex(hexcode):
+def res_colorhex(hexcode):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)    #send exit command to stream mode so it exits if it is running before
         s.sendto('exit'.encode(), ("127.0.0.1", Glob.config['udp_port']))

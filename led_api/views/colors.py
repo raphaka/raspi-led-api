@@ -6,14 +6,11 @@ from led_api import app,db
 log = logging.getLogger(__name__)
 
 
-
-print('imported views/colors')
-
 #GET: return array of colors
 #POST: Add new color or update if existing
 #DELETE: Delete color from database
 @app.route('/colors', methods = ['GET', 'POST', 'DELETE'])
-def list_fav_colors():
+def res_colors():
     #add or update new color
     if request.method == 'POST':
         #check content type and json syntax

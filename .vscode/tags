@@ -1,0 +1,74 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Color	../led_api/models.py	/^class Color(db.Model):$/;"	kind:class	line:3
+Color	../led_api/views/colors.py	/^from led_api.models import Color, ColorSchema$/;"	kind:namespace	line:4
+ColorSchema	../led_api/models.py	/^class ColorSchema(ma.ModelSchema):$/;"	kind:class	line:16
+ColorSchema	../led_api/views/colors.py	/^from led_api.models import Color, ColorSchema$/;"	kind:namespace	line:4
+Flask	../led_api/__init__.py	/^from flask import Flask$/;"	kind:namespace	line:2
+Glob	../led_api/__init__.py	/^from led_api.util import Glob,read_json$/;"	kind:namespace	line:6
+Glob	../led_api/pin_controller.py	/^from led_api.util import hex_2_rgb, Glob$/;"	kind:namespace	line:5
+Glob	../led_api/util.py	/^class Glob(object):$/;"	kind:class	line:18
+Glob	../led_api/views/setpins.py	/^from led_api.util import Glob$/;"	kind:namespace	line:5
+Marshmallow	../led_api/__init__.py	/^from flask_marshmallow import Marshmallow$/;"	kind:namespace	line:4
+Meta	../led_api/models.py	/^    class Meta:$/;"	kind:class	line:17
+SQLAlchemy	../led_api/__init__.py	/^from flask_sqlalchemy import SQLAlchemy$/;"	kind:namespace	line:3
+__init__.py	../led_api/__init__.py	1;"	kind:file	line:1
+__repr__	../led_api/models.py	/^    def __repr__(self):$/;"	kind:member	line:8
+app	../led_api/__init__.py	/^app = Flask(__name__)$/;"	kind:variable	line:9
+app	../led_api/views/colors.py	/^from led_api import app,db$/;"	kind:namespace	line:5
+app	../led_api/views/setpins.py	/^from led_api import app,db$/;"	kind:namespace	line:7
+app	../run.py	/^from led_api import app$/;"	kind:namespace	line:1
+colors	../led_api/__init__.py	/^from led_api.views import colors,setpins,settings$/;"	kind:namespace	line:13
+colors.py	../led_api/views/colors.py	1;"	kind:file	line:1
+config	../led_api/util.py	/^        config = {}/;"	kind:variable	line:19
+db	../led_api/__init__.py	/^db = SQLAlchemy(app)$/;"	kind:variable	line:11
+db	../led_api/models.py	/^from led_api import db, ma$/;"	kind:namespace	line:1
+db	../led_api/views/colors.py	/^from led_api import app,db$/;"	kind:namespace	line:5
+db	../led_api/views/setpins.py	/^from led_api import app,db$/;"	kind:namespace	line:7
+format	../led_api/__init__.py	/^    format='%(asctime)s.%(msecs)03d %(levelname)s: %(message)s', datefmt="%Y-%m-%d %H:%M:%S")$/;"	kind:variable	line:17
+hex_2_rgb	../led_api/pin_controller.py	/^from led_api.util import hex_2_rgb, Glob$/;"	kind:namespace	line:5
+hex_2_rgb	../led_api/util.py	/^def hex_2_rgb(str_colorhex):$/;"	kind:function	line:12
+id	../led_api/models.py	/^    id = db.Column(db.Integer, primary_key=True)$/;"	kind:variable	line:4
+json	../led_api/util.py	/^import json$/;"	kind:namespace	line:1
+jsonify	../led_api/views/colors.py	/^from flask import request, jsonify$/;"	kind:namespace	line:2
+log	../led_api/pin_controller.py	/^log = logging.getLogger(__name__)$/;"	kind:variable	line:6
+log	../led_api/views/colors.py	/^log = logging.getLogger(__name__)$/;"	kind:variable	line:6
+log	../led_api/views/setpins.py	/^log = logging.getLogger(__name__)$/;"	kind:variable	line:8
+logging	../led_api/__init__.py	/^import logging$/;"	kind:namespace	line:1
+logging	../led_api/pin_controller.py	/^import logging$/;"	kind:namespace	line:1
+logging	../led_api/views/colors.py	/^import logging$/;"	kind:namespace	line:1
+logging	../led_api/views/setpins.py	/^import logging$/;"	kind:namespace	line:1
+ma	../led_api/__init__.py	/^ma = Marshmallow(app)   #Wrapper to make SQLalchemy objects JSON Serializable$/;"	kind:variable	line:12
+ma	../led_api/models.py	/^from led_api import db, ma$/;"	kind:namespace	line:1
+model	../led_api/models.py	/^        model = Color/;"	kind:variable	line:18
+models.py	../led_api/models.py	1;"	kind:file	line:1
+name	../led_api/models.py	/^    name = db.Column(db.String(80), unique=True, nullable=False)$/;"	kind:variable	line:5
+pigpio	../led_api/pin_controller.py	/^import pigpio$/;"	kind:namespace	line:3
+pin_controller.py	../led_api/pin_controller.py	1;"	kind:file	line:1
+read_json	../led_api/__init__.py	/^from led_api.util import Glob,read_json$/;"	kind:namespace	line:6
+read_json	../led_api/util.py	/^def read_json(input):$/;"	kind:function	line:4
+request	../led_api/views/colors.py	/^from flask import request, jsonify$/;"	kind:namespace	line:2
+res_colorhex	../led_api/views/setpins.py	/^def res_colorhex(hexcode):$/;"	kind:function	line:29
+res_colors	../led_api/views/colors.py	/^def res_colors():$/;"	kind:function	line:16
+res_stream	../led_api/views/setpins.py	/^def res_stream():$/;"	kind:function	line:13
+run.py	../run.py	1;"	kind:file	line:1
+set_color	../led_api/pin_controller.py	/^def set_color(red,green,blue):$/;"	kind:function	line:39
+set_color_by_hex	../led_api/pin_controller.py	/^def set_color_by_hex(colorhex):$/;"	kind:function	line:34
+set_color_by_hex	../led_api/views/setpins.py	/^from led_api.pin_controller import set_color_by_hex$/;"	kind:namespace	line:6
+setpins	../led_api/__init__.py	/^from led_api.views import colors,setpins,settings$/;"	kind:namespace	line:13
+setpins.py	../led_api/views/setpins.py	1;"	kind:file	line:1
+settings	../led_api/__init__.py	/^from led_api.views import colors,setpins,settings$/;"	kind:namespace	line:13
+settings.py	../led_api/views/settings.py	1;"	kind:file	line:1
+socket	../led_api/pin_controller.py	/^import socket$/;"	kind:namespace	line:2
+socket	../led_api/views/setpins.py	/^import socket$/;"	kind:namespace	line:2
+start_pigpio	../led_api/__init__.py	/^from led_api.pin_controller import start_pigpio$/;"	kind:namespace	line:7
+start_pigpio	../led_api/pin_controller.py	/^def start_pigpio():$/;"	kind:function	line:10
+stream_thread	../led_api/pin_controller.py	/^def stream_thread():$/;"	kind:function	line:16
+sys	../led_api/util.py	/^import sys$/;"	kind:namespace	line:2
+threading	../led_api/views/setpins.py	/^import threading$/;"	kind:namespace	line:3
+util.py	../led_api/util.py	1;"	kind:file	line:1
+value	../led_api/models.py	/^    value = db.Column(db.String(6), nullable=False)$/;"	kind:variable	line:6
