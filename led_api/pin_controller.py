@@ -40,7 +40,7 @@ def set_color_by_hex(colorhex):
 def set_color(red,green,blue):
     global pi
     msg= 'received rgb values:   r={0}, g={1}, b={2}'.format(red,green,blue)
-    c = Glob.config['contrast_boost']
+    c = Glob.config['contrast_adjustment']
     red = ((red/255) ** c)*255
     blue = ((blue/255) ** c)*255
     green = ((green/255) ** c)*255

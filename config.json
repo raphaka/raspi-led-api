@@ -5,5 +5,5 @@
     "pin_blue":24,
     "pins_enabled":false,
     "log_file":"raspi_led_api.log",
-    "contrast_boost":1.5
+    "contrast_adjustment":1.5
 }
