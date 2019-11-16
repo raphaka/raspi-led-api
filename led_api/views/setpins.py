@@ -19,7 +19,7 @@ def res_stream():
         log.info('Started new thread for stream mode')
     except:
         log.error('could not start stream mode')
-        return "failure: could not start stream mode"
+        return ("failure: Could not start stream mode", 500)
     return "success"
 
 
@@ -34,5 +34,5 @@ def res_colorhex(hexcode):
         log.info('Setting color ' + hexcode)
     except:
         log.error('Could not set color')
-        return "failure: could not set color"
+        return ("failure: could not set color", 500)
     return set_color_by_hex(hexcode)

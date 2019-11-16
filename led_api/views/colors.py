@@ -15,12 +15,12 @@ def res_colors():
     if request.method == 'POST':
         #check content type and json syntax
         if not request.content_type == 'application/json':
-            return ('failed', 'Content-type must be application/json', 401)
+            return ('failed: Content-type must be application/json', 401)
         data = request.get_json()
         item_name = data.get('name')
         item_value = data.get('value')
         if not item_name or not item_value:
-            return ('failed', 'Name or value attribute not found', 400)
+            return ('failed: Name or value attribute not found', 400)
         #insert new record in database or update if exists
         try: 
             col=db.session.query(Color).filter_by(name=item_name).first()
@@ -31,18 +31,18 @@ def res_colors():
             db.session.commit()
         except:
             log.error('Could not insert new color into database')
-            return ('failed', 'Could not insert or update color', 500) 
+            return ('failed: Could not insert or update color', 500) 
         return 'success'
     #delete color
     if request.method == 'DELETE':
         #check content type and json syntax
         if not request.content_type == 'application/json':
-            return ('failed', 'Content-type must be application/json', 401)
+            return ('failed: Content-type must be application/json', 401)
         data=request.get_json()
         item_name = data.get('name')
         item_id = data.get('id')
         if not item_name and not item_id:
-            return ('failed', 'No name or id attribute found', 400)
+            return ('failed: No name or id attribute found', 400)
         #delete record from database
         try:
             if item_id:
@@ -54,10 +54,10 @@ def res_colors():
                 db.session.commit()
             else:
                 log.error("Could not delete color from database: Color didn't exist")
-                return ('failed', 'Color not existing in data base', 410)
+                return ('failed: Color not existing in data base', 410)
         except:
             log.error('Could not delete color from database')
-            return ('failed', 'Could not delete color', 500)
+            return ('failed: Could not delete color', 500)
         return "success"
     #list existing colors
     else:
