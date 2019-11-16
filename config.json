@@ -3,6 +3,7 @@
     "pin_red":23,
     "pin_green":25,
     "pin_blue":24,
-    "pins_enabled":true,
-    "log_file":"led_controller.log"
+    "pins_enabled":false,
+    "log_file":"raspi_led_api.log",
+    "contrast_boost":1.5
 }

@@ -35,10 +35,17 @@ def set_color_by_hex(colorhex):
     r,g,b = hex_2_rgb(colorhex)
     return set_color(r,g,b)
 
-#set gpio values according to rgb-color 
+#set gpio values according to rgb-color
+#output value is calculated using a power function and the contrast_boost value in the config 
 def set_color(red,green,blue):
     global pi
-    msg= 'r={0}, g={1}, b={2}'.format(red,green,blue)
+    msg= 'before:   r={0}, g={1}, b={2}'.format(red,green,blue)
+    print(msg)
+    c = Glob.config['contrast_boost']
+    red = ((red/255) ** c)*255
+    blue = ((blue/255) ** c)*255
+    green = ((green/255) ** c)*255
+    msg= 'after:   r={0}, g={1}, b={2}'.format(red,green,blue)
     if Glob.config['pins_enabled']:
         pi.set_PWM_dutycycle(Glob.config['pin_red'],red)
         pi.set_PWM_dutycycle(Glob.config['pin_green'],green)
