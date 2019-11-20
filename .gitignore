@@ -3,8 +3,6 @@ notes.txt
 config.json
 led_api/flask_config.cfg
 led_api/__pycache__/*
+led_api/views/__pycache__/*
 led_api/colors.db
 __pycache__/*
-led_api/views/__pycache__/colors.cpython-37.pyc
-led_api/views/__pycache__/setpins.cpython-37.pyc
-led_api/views/__pycache__/settings.cpython-37.pyc
