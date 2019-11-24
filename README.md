@@ -11,3 +11,47 @@ A tutorial on how to install the light strips on your Raspberry pi can be found 
 https://dordnung.de/raspberrypi-ledstrip/
 
 It is available in German and English.
+
+# Installing and running the application
+Install the flask application:
+
+`git clone https://github.com/raphaka/raspi-led-api.git`
+`cd raspi-led-api`
+`pip install --user -r requirements.txt`
+
+Enable pigpio:
+`sudo systemctl enable --now pigpiod`
+
+Run the application:
+
+`python3 run.py`
+
+# Basics
+Adjust the `SERVER_NAME` variable in led_api/flask_config.cfg to set up the <host> and <port>.
+
+
+Setting the light strips to a specific color:
+
+`GET http://<host>:<port>/set/colorhex/<color>`
+
+<color> is the hexadecimal representation of a 24bit RGB value (e.g. 00ff00 for green)
+
+
+Enable stream mode:
+
+`GET http://<host>:<port>/set/stream`
+
+The port can be configured in the settings.
+
+
+Adjusting the settings:
+
+`PUT http://<host>:<port>/set/stream`
+
+The request data should be a JSON object containing one or more key/value pairs.
+Unrecognised keys will automatically be ignored. Example:
+
+`{
+"brightness_maximum": 200,
+"contrast_adjustment":1.5
+}`
