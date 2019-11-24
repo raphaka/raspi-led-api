@@ -36,14 +36,17 @@ def set_color_by_hex(colorhex):
     return set_color(r,g,b)
 
 #set gpio values according to rgb-color
-#output value is calculated using a power function and the contrast_boost value in the config 
+#output value is calculated using a power function and the contrast_adjustment value in the config
+#the power function always cuts 1:1 and the pitch increases as the input value gets higher
+#the coordinate 1:1 is set to the brightness_maximum by multiplication/division
 def set_color(red,green,blue):
     global pi
     msg= 'received rgb values:   r={0}, g={1}, b={2}'.format(red,green,blue)
     c = Glob.config['contrast_adjustment']
-    red = ((red/255) ** c)*255
-    blue = ((blue/255) ** c)*255
-    green = ((green/255) ** c)*255
+    m = Glob.config['brightness_maximum']
+    red = ((red/255) ** c)*m
+    blue = ((blue/255) ** c)*m
+    green = ((green/255) ** c)*m
     msg= 'setting output to:   r={0}, g={1}, b={2}'.format(red,green,blue)
     if Glob.config['pins_enabled']:
         pi.set_PWM_dutycycle(Glob.config['pin_red'],red)
