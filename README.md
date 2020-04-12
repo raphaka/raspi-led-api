@@ -17,6 +17,7 @@ Install the flask application:
 `pip install --user -r requirements.txt`  
 
 Enable pigpio:  
+`sudo apt-get install pigpiod`
 `sudo systemctl enable --now pigpiod`
 
 Run the application:  
