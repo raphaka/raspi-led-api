@@ -24,7 +24,7 @@ def write_json(outpath, data):
 def write_config():
     return(write_json('config.json',Glob.config))
 
-def hex_2_rgb(str_colorhex):
+def hex_2_rgb(str_colorhex): #throws ValueError
         r=int(str_colorhex[0:2],16)
         g=int(str_colorhex[2:4],16)
         b=int(str_colorhex[4:6],16)

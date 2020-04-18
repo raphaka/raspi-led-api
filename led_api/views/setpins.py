@@ -8,7 +8,7 @@ from led_api import app,db
 log = logging.getLogger(__name__)
 
 #listens on udp port for colors to set in realtime
-#sends udp packet to localhost socket => stream mode restarts if running 
+#sends udp packet to localhost socket => stream mode restarts if running
 @app.route('/set/stream')
 def res_stream():
     try:
@@ -24,7 +24,7 @@ def res_stream():
 
 
 #sets color from requested ressource
-#sends udp packet to localhost socket => stream mode terminates if running 
+#sends udp packet to localhost socket => stream mode terminates if running
 @app.route('/set/colorhex/<hexcode>')
 def res_colorhex(hexcode):
     try:
@@ -35,4 +35,7 @@ def res_colorhex(hexcode):
     except:
         log.error('Could not set color')
         return ("failure: could not set color", 500)
-    return set_color_by_hex(hexcode)
+    msg = set_color_by_hex(hexcode)
+    if ('failed' in msg):
+        return (msg,400)
+    return msg

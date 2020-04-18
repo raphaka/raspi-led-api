@@ -32,7 +32,10 @@ def stream_thread():
 
 #set gpio values according to rgb-color-hex
 def set_color_by_hex(colorhex):
-    r,g,b = hex_2_rgb(colorhex)
+    try:
+        r,g,b = hex_2_rgb(colorhex)
+    except ValueError:
+        return "failed: no valid hexadecimal color value"
     return set_color(r,g,b)
 
 #set gpio values according to rgb-color
