@@ -61,8 +61,8 @@ def res_colors():
         return "success"
     #list existing colors
     else:
-        dictc = {}
+        dictc = []
         recs = db.session.query(Color).all()
         #Convert Records class from Color to dictionaries
-        dictc['colors'] = ColorSchema(many=True).dump(recs) 
+        dictc = ColorSchema(many=True).dump(recs) 
         return jsonify(dictc)
