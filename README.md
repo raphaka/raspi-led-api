@@ -14,7 +14,8 @@ It is available in German and English.
 Install the flask application:  
 `git clone https://github.com/raphaka/raspi-led-api.git`  
 `cd raspi-led-api`  
-`pip install --user -r requirements.txt`  
+`pip3 install --user -r requirements.txt`  
+(You may need to install python3-pip to run this)
 
 Enable pigpio:  
 `sudo apt-get install pigpiod`  
