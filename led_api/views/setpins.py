@@ -1,9 +1,10 @@
 import logging
 import socket
 import threading
+from flask import request
 
 from led_api.util import Glob
-from led_api.pin_controller import set_color_by_hex, stream_thread
+from led_api.pin_controller import set_color_by_hex, stream_thread, fade_to_color
 from led_api import app,db
 log = logging.getLogger(__name__)
 
@@ -39,3 +40,30 @@ def res_colorhex(hexcode):
     if ('failed' in msg):
         return (msg,400)
     return msg
+
+#starts effect test
+@app.route('/set/fade', methods = ['POST'])
+def res_fade():
+    if request.method == 'POST':
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)    #send exit command to stream mode so it exits if it is running before
+            s.sendto('exit'.encode(), ("127.0.0.1", Glob.config['udp_port']))
+            log.debug('Sent "exit" signal to stream mode udp port on localhost')
+            log.info('Could not start fade mode')
+        except:
+            log.error('Could not start fade mode')
+            return ("failure: could not start fade mode", 500)
+        #check content type and json syntax
+        if not request.content_type == 'application/json':
+            return ('failed: Content-type must be application/json', 401)
+        data = request.get_json()
+        item_startcolor = data.get('startcolor')
+        item_targetcolor = data.get('targetcolor')
+        item_duration = data.get('duration') #TODO check if number
+        if not item_startcolor or not item_targetcolor or not item_duration:
+            return ('failed: startcolor, targetcolor or duration attribute not found', 400)
+        #fade to color
+        msg = fade_to_color(item_startcolor, item_targetcolor, item_duration)
+        if ('failed' in msg):
+            return (msg,400)
+        return msg
