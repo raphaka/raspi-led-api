@@ -5,6 +5,7 @@
   "pin_blue": 24,
   "pins_enabled": true,
   "log_file": "raspi_led_api.log",
+  "fade_frequency": 30,
   "contrast_adjustment": 1,
   "brightness_maximum": 255
 }

@@ -62,28 +62,27 @@ def set_color(red,green,blue):
 
 #fades to color
 def fade_to_color(start_color, target_color, duration): #duration in ms
-    # print('start fade: '+ start_color + ' ' + target_color + ' ' + str(duration))
     fade_start = datetime.now()
-    period = 40/1000 #seconds #20 -> 50hz #TODO determine fade frequency in settings
+    period = 1000/Glob.config['fade_frequency']
+    print(period)
     r,g,b = hex_2_rgb(start_color)
     end_r,end_g,end_b = hex_2_rgb(target_color)
-    num_steps = int(duration / (period*1000)) #TODO modulo, restzeit als eigene iteration
-    # print('num_steps = ' + str(num_steps))
-    step_r = (end_r-r)/num_steps
-    # print('stepr = ' + str(step_r))
-    step_g = (end_g-g)/num_steps
-    step_b = (end_b-b)/num_steps
-    for x in range(0, num_steps):
-        time_start = datetime.now()
-        r = r + step_r
-        g = g + step_g
-        b = b + step_b
-        set_color(r,g,b)
-        exec_time = datetime.now() - time_start
-        #print('exec_time = ' + str(exec_time))
-        #print(period - exec_time.total_seconds())
-        time.sleep(period-exec_time.total_seconds()) #TODO MUST BE >=0 (frequency can be set by user)
-    time.sleep((duration % (period*1000))/1000) #correction if period is not a whole multiple of duration
+    num_steps = int(duration / period)
+    if num_steps > 0:  #only execute if theres at least one step in fade progress
+        step_r = (end_r-r)/num_steps
+        step_g = (end_g-g)/num_steps
+        step_b = (end_b-b)/num_steps
+        periodseconds = period/1000 #saved to value, so this division is not performed every loop
+        for x in range(0, num_steps):
+            time_start = datetime.now()
+            r = r + step_r
+            g = g + step_g
+            b = b + step_b
+            set_color(r,g,b)
+            exec_time = datetime.now() - time_start
+            if (periodseconds > exec_time.total_seconds()):
+                time.sleep(periodseconds - exec_time.total_seconds()) #TODO MUST BE >=0 (frequency can be set by user)
+    time.sleep((duration % period)/1000) #correction if period is not a whole multiple of duration
     set_color_by_hex(target_color)
     actual_duration = datetime.now() - fade_start
     return('finished: r=' + str(int(r)) + ' g=' + str(int(g)) + ' b=' + str(int(b))  + ' time=' + str(actual_duration))
