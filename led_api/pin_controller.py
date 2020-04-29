@@ -56,6 +56,9 @@ def fade_to_color(start_color, target_color, duration): #duration in ms
         periodseconds = period/1000 #saved to value, so this division is not performed every loop
         for x in range(0, num_steps):
             time_start = datetime.now()
+            if (Glob.thread_stop == True):
+                logging.info('fade: Terminating - Stop flag has been set')
+                return 1
             r = r + step_r
             g = g + step_g
             b = b + step_b
@@ -66,4 +69,5 @@ def fade_to_color(start_color, target_color, duration): #duration in ms
     time.sleep((duration % period)/1000) #correction if period is not a whole multiple of duration
     set_color_by_hex(target_color)
     actual_duration = datetime.now() - fade_start
-    return('finished: r=' + str(int(r)) + ' g=' + str(int(g)) + ' b=' + str(int(b))  + ' time=' + str(actual_duration))
+    print('fade duration: '+ str(actual_duration))
+    return 0 #('finished: r=' + str(int(r)) + ' g=' + str(int(g)) + ' b=' + str(int(b))  + ' time=' + str(actual_duration))

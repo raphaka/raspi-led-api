@@ -5,7 +5,7 @@ from flask import request
 
 from led_api.util import Glob
 from led_api.pin_controller import set_color_by_hex, fade_to_color
-from led_api.threads import stream_thread
+from led_api.threads import stream_thread,effect_thread
 from led_api import app,db
 log = logging.getLogger(__name__)
 
@@ -39,6 +39,26 @@ def res_colorhex(hexcode):
         return (msg,400)
     return msg
 
+@app.route('/set/effect', methods = ['POST'])
+def res_testeffect():
+    if request.method == 'POST':
+        try:
+            if not request.content_type == 'application/json':
+                return ('failed: Content-type must be application/json', 401)
+            data = request.get_json()
+            #stop old thread if running
+            Glob.thread_stop = True
+            if Glob.current_thread.is_alive():
+                Glob.current_thread.join()
+            #create a new thread
+            Glob.current_thread = threading.Thread(target=effect_thread, args=(data,))
+            Glob.current_thread.start()
+            log.info('Started new thread for effect mode')
+        except:
+            log.error('could not start effect mode')
+            return ("failure: Could not start effect mode", 500)
+        return "started effect"
+
 #starts effect test
 @app.route('/set/fade', methods = ['POST'])
 def res_fade():
@@ -51,6 +71,7 @@ def res_fade():
         item_startcolor = data.get('startcolor')
         item_targetcolor = data.get('targetcolor')
         item_duration = data.get('duration') #TODO check if number
+        log.info('fade from ' + item_startcolor + ' to ' + item_targetcolor + ' in ' + item_duration)
         if not item_startcolor or not item_targetcolor or not item_duration:
             return ('failed: startcolor, targetcolor or duration attribute not found', 400)
         #fade to color

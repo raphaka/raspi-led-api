@@ -2,7 +2,7 @@ import socket
 import logging
 
 from led_api.util import Glob
-from led_api.pin_controller import set_color_by_hex
+from led_api.pin_controller import set_color_by_hex,fade_to_color
 log = logging.getLogger(__name__)
 
 #start stream mode on UDP port and change color in realtime
@@ -36,3 +36,21 @@ def stream_thread():
                 return 1
             logging.info('Stream thread timed out after ' + str(sock_timeout) + ' seconds. Retrying...')
     return 1
+
+def effect_thread(data):
+    print(data['effect'])
+    print(type(data['effect']))
+    Glob.thread_stop = False
+    curcolor = '000000'
+    while 1:
+        if (Glob.thread_stop == True):
+            logging.info('Effect: Terminating - Stop flag has been set')
+            return 1
+        for el in data['effect']:
+            if el['fade']:
+                if fade_to_color(curcolor, el['color'], el['duration']) == 1: #this returns 1 when thread_stop is set and 0 on success
+                    return 1
+            else:
+                if fade_to_color(el['color'], el['color'], el['duration']) == 1: #this returns 1 when thread_stop is set and 0 on success
+                    return 1
+            curcolor = el['color']
