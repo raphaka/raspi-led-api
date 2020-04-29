@@ -1,7 +1,7 @@
 import socket
 import logging
 
-from led_api.util import Glob
+from led_api.util import Glob,hex_2_rgb
 from led_api.pin_controller import set_color_by_hex,fade_to_color
 log = logging.getLogger(__name__)
 
@@ -38,10 +38,25 @@ def stream_thread():
     return 1
 
 def effect_thread(data):
-    print(data['effect'])
-    print(type(data['effect']))
     Glob.thread_stop = False
     curcolor = '000000'
+    #check if effect syntax is correct
+    for el in data['effect']:
+        if (not 'color' in el.keys()) or (not 'duration' in el.keys()) or (not 'fade' in el.keys()):
+            Glob.thread_stop = True
+            log.error('invalid key structure in effect element: ' + str(el))
+            return 2
+        if (not isinstance(el['fade'],bool)) or (not isinstance(el['duration'],int)) or (not isinstance(el['color'],str)):
+            Glob.thread_stop = True
+            log.error('key has wrong data type in effect element: ' + str(el))
+            return 2
+        try:
+            hex_2_rgb(el['color'])
+        except ValueError:
+            Glob.thread_stop = True
+            logging.error("failed: effect color is no valid hexadecimal color value")
+            return 3
+    #execute the effect until thread is stopped via flag
     while 1:
         if (Glob.thread_stop == True):
             logging.info('Effect: Terminating - Stop flag has been set')

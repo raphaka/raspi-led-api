@@ -39,6 +39,7 @@ def res_colorhex(hexcode):
         return (msg,400)
     return msg
 
+# starts effect sent in body
 @app.route('/set/effect', methods = ['POST'])
 def res_testeffect():
     if request.method == 'POST':
@@ -53,29 +54,15 @@ def res_testeffect():
             #create a new thread
             Glob.current_thread = threading.Thread(target=effect_thread, args=(data,))
             Glob.current_thread.start()
-            log.info('Started new thread for effect mode')
+            #time.sleep(200)
+            #log.info('Started new thread for effect mode')
         except:
             log.error('could not start effect mode')
-            return ("failure: Could not start effect mode", 500)
-        return "started effect"
-
-#starts effect test
-@app.route('/set/fade', methods = ['POST'])
-def res_fade():
-    if request.method == 'POST':
-        Glob.thread_stop = True
-        #check content type and json syntax
-        if not request.content_type == 'application/json':
-            return ('failed: Content-type must be application/json', 401)
-        data = request.get_json()
-        item_startcolor = data.get('startcolor')
-        item_targetcolor = data.get('targetcolor')
-        item_duration = data.get('duration') #TODO check if number
-        log.info('fade from ' + item_startcolor + ' to ' + item_targetcolor + ' in ' + item_duration)
-        if not item_startcolor or not item_targetcolor or not item_duration:
-            return ('failed: startcolor, targetcolor or duration attribute not found', 400)
-        #fade to color
-        msg = fade_to_color(item_startcolor, item_targetcolor, item_duration)
-        if ('failed' in msg):
-            return (msg,400)
-        return msg
+            return ('failure: Could not start effect mode', 500)
+            print(Glob.current_thread)
+        if Glob.thread_stop == False and Glob.current_thread.is_alive():
+            log.info('Started new thread for effect mode')
+            return 'success'
+        else:
+            logging.error('effect thread could not be started due to an error.')
+            return ('could not start this effect. Please check the syntax.', 400)
