@@ -37,7 +37,7 @@ def stream_thread():
             logging.info('Stream thread timed out after ' + str(sock_timeout) + ' seconds. Retrying...')
     return 1
 
-def effect_thread(effect):
+def effect_thread(effect: list):
     Glob.thread_stop = False
     curcolor = '000000'
     #check if effect syntax is correct
