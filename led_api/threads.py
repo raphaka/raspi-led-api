@@ -66,6 +66,7 @@ def effect_thread(data):
                 if fade_to_color(curcolor, el['color'], el['duration']) == 1: #this returns 1 when thread_stop is set and 0 on success
                     return 1
             else:
+                #fade from color to itself, fade function regularly checks threadstop flag
                 if fade_to_color(el['color'], el['color'], el['duration']) == 1: #this returns 1 when thread_stop is set and 0 on success
                     return 1
             curcolor = el['color']

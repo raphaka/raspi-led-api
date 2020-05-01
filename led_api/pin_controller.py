@@ -25,7 +25,7 @@ def set_color_by_hex(colorhex):
 #set gpio values according to rgb-color
 #output value is calculated using a power function and the contrast_adjustment value in the config
 #the power function always cuts 1:1 and the pitch increases as the input value gets higher
-#the coordinate 1:1 is set to the brightness_maximum by multiplication/division
+#the coordinate 1:1 is set to the brightness_maximum by multiplication
 def set_color(red,green,blue):
     global pi
     c = Glob.config['contrast_adjustment']
@@ -69,5 +69,4 @@ def fade_to_color(start_color, target_color, duration): #duration in ms
     time.sleep((duration % period)/1000) #correction if period is not a whole multiple of duration
     set_color_by_hex(target_color)
     actual_duration = datetime.now() - fade_start
-    print('fade duration: '+ str(actual_duration)) #TODO DEBUG REMOVE
     return 0

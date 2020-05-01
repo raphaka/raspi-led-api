@@ -35,7 +35,7 @@ start_pigpio()
 #initialize DB and views of flask app
 db = SQLAlchemy(app)
 ma = Marshmallow(app)   #Wrapper to make SQLalchemy objects JSON Serializable
-from led_api.views import colors,setpins,settings
+from led_api.views import colors,effects,setpins,settings
 db.create_all()
 
 
