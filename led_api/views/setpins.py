@@ -51,9 +51,11 @@ def res_testeffect():
         if Glob.current_thread.is_alive():
             Glob.current_thread.join()
         #create a new thread
-        Glob.current_thread = threading.Thread(target=effect_thread, args=(data,))
+        item_effect = data.get('effect')
+        if not item_effect:
+            return ('failed: Effect attribute not found', 400)
+        Glob.current_thread = threading.Thread(target=effect_thread, args=(item_effect,))
         Glob.current_thread.start()
-        #log.info('Started new thread for effect mode')
     except:
         log.error('could not start effect mode')
         return ('failure: Could not start effect mode', 500)

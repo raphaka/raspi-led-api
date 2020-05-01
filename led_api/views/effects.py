@@ -62,7 +62,6 @@ def res_effects():
     else:
         dictc = []
         recs = db.session.query(Effect).all()
-        #print(type(recs))
         #Convert Records class from Effect to dictionaries
         dictc = EffectSchema(many=True).dump(recs)
         return jsonify(dictc)

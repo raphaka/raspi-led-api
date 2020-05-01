@@ -48,6 +48,7 @@ def fade_to_color(start_color, target_color, duration): #duration in ms
     period = 1000/Glob.config['fade_frequency']
     r,g,b = hex_2_rgb(start_color)
     end_r,end_g,end_b = hex_2_rgb(target_color)
+    duration = duration / Glob.config["effect_speed"]
     num_steps = int(duration / period)
     if num_steps > 0:  #only execute if theres at least one step in fade progress
         step_r = (end_r-r)/num_steps

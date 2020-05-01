@@ -37,11 +37,11 @@ def stream_thread():
             logging.info('Stream thread timed out after ' + str(sock_timeout) + ' seconds. Retrying...')
     return 1
 
-def effect_thread(data):
+def effect_thread(effect):
     Glob.thread_stop = False
     curcolor = '000000'
     #check if effect syntax is correct
-    for el in data['effect']:
+    for el in effect:
         if (not 'color' in el.keys()) or (not 'duration' in el.keys()) or (not 'fade' in el.keys()):
             Glob.thread_stop = True
             log.error('invalid key structure in effect element: ' + str(el))
@@ -61,7 +61,7 @@ def effect_thread(data):
         if (Glob.thread_stop == True):
             logging.info('Effect: Terminating - Stop flag has been set')
             return 1
-        for el in data['effect']:
+        for el in effect:
             if el['fade']:
                 if fade_to_color(curcolor, el['color'], el['duration']) == 1: #this returns 1 when thread_stop is set and 0 on success
                     return 1
