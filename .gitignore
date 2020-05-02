@@ -1,6 +1,5 @@
 *.log
-notes.txt
-config.json
+led_api/config.json
 led_api/flask_config.cfg
 led_api/__pycache__/*
 led_api/views/__pycache__/*

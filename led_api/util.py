@@ -1,6 +1,7 @@
 import json
 import sys
 import logging
+import threading
 
 log = logging.getLogger(__name__)
 
@@ -32,3 +33,5 @@ def hex_2_rgb(str_colorhex): #throws ValueError
 
 class Glob(object):
         config = {}
+        thread_stop = True # Set to False when Thread is started. Thread checks regularly if set to True (and stop)
+        current_thread = threading.Thread() #There's at max 1 thread started at each time
