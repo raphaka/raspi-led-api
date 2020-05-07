@@ -37,26 +37,3 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)   #Wrapper to make SQLalchemy objects JSON Serializable
 from led_api.views import colors,effects,setpins,settings
 db.create_all()
-
-
-
-
-
-
-# api_dir = os.path.dirname(os.path.realpath(__file__))
-# if not os.path.isfile(api_dir + '/flask_config.cfg'):
-#     copyfile(api_dir + '/flask_config_default.cfg', api_dir + '/flask_config.cfg')
-# if not os.path.isfile(api_dir + '/config.json'):
-#     copyfile(api_dir + '/config_default.json', api_dir + '/config.json')
-#
-# app = Flask(__name__)
-# app.config.from_pyfile(api_dir + '/flask_config.cfg')
-# db = SQLAlchemy(app)
-# ma = Marshmallow(app)   #Wrapper to make SQLalchemy objects JSON Serializable
-# from led_api.views import colors,setpins,settings
-#
-# Glob.config = read_json(api_dir + '/config.json')
-# logging.basicConfig(filename=Glob.config['log_file'],level=logging.DEBUG,
-#     format='%(asctime)s.%(msecs)03d %(levelname)s: %(message)s', datefmt="%Y-%m-%d %H:%M:%S")
-# start_pigpio()
-# db.create_all()
