@@ -14,13 +14,33 @@ def res_settings():
         if not request.content_type == 'application/json':
             return ('failed: Content type must be application/json', 401)
         data = request.get_json()
+        invalid_keys = []
         for k in data:
-            if k in Glob.config.keys():
-                Glob.config[k] = data[k]
-        if write_config() == 0:
+            # check data type and insert in settings if correct
+            if (k in ["brightness_maximum","contrast_adjustment","effect_speed","fade_frequency","pin_blue","pin_green","pin_red","socket_timeout","udp_port"]):
+                if (isinstance(data[k], int) and data[k] > 0):
+                    Glob.config[k] = data[k]
+                else:
+                    invalid_keys.append(k)
+            elif (k in ["log_file"]):
+                if (isinstance(data[k], str)):
+                    Glob.config[k] = data[k]
+                else:
+                    invalid_keys.append(k)
+            elif (k in ["pins_enabled"]):
+                if (isinstance(data[k], bool)):
+                    Glob.config[k] = data[k]
+                else:
+                    invalid_keys.append(k)
+            else:
+                invalid_keys.append(k)
+        if (write_config() == 0):
             log.info('updated config file')
-            return 'success'
         else:
             return('failed: Could not write settings to output file', 500)
+        if (not invalid_keys):
+            return 'success'
+        else:
+            return (jsonify(invalid_keys),400)
     else:
         return jsonify(Glob.config)
