@@ -17,8 +17,13 @@ def res_settings():
         invalid_keys = []
         for k in data:
             # check data type and insert in settings if correct
-            if (k in ["brightness_maximum","contrast_adjustment","effect_speed","fade_frequency","pin_blue","pin_green","pin_red","socket_timeout","udp_port"]):
+            if (k in ["brightness_maximum","pin_blue","pin_green","pin_red","udp_port"]):
                 if (isinstance(data[k], int) and data[k] > 0):
+                    Glob.config[k] = data[k]
+                else:
+                    invalid_keys.append(k)
+            elif (k in ["contrast_adjustment","effect_speed","fade_frequency","socket_timeout"]):
+                if (isinstance(data[k], float) or isinstance(data[k], int)):
                     Glob.config[k] = data[k]
                 else:
                     invalid_keys.append(k)
