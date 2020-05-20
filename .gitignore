@@ -1,4 +1,5 @@
 *.log
+env/
 led_api/config.json
 led_api/flask_config.cfg
 led_api/__pycache__/*

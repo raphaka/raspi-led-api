@@ -28,7 +28,7 @@ def res_effects():
                 col.value = item_value
             else:
                 db.session.add(Effect(name=item_name, value=item_value))
-            col=db.session.query(Color).filter_by(name=item_name).first()
+            col=db.session.query(Effect).filter_by(name=item_name).first()
             id = col.id
             db.session.commit()
         except:
