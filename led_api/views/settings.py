@@ -32,6 +32,11 @@ def res_settings():
                     Glob.config[k] = data[k]
                 else:
                     invalid_keys.append(k)
+            elif (k in ["log_level"]):
+                if (data[k] in ["NOTSET","DEBUG","INFO","WARNING","ERROR","CRITICAL"]):
+                    Glob.config[k] = data[k]
+                else:
+                    invalid_keys.append(k)
             elif (k in ["pins_enabled"]):
                 if (isinstance(data[k], bool)):
                     Glob.config[k] = data[k]
