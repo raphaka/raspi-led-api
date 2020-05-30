@@ -29,7 +29,7 @@ if new_config_file:
     exit()
 print(api_dir + '/config.json')
 Glob.config = read_json(api_dir + '/config.json')
-logging.basicConfig(filename=Glob.config['log_file'],level=logging.DEBUG,
+logging.basicConfig(filename=Glob.config['log_file'],level=Glob.config['log_level'],
     format='%(asctime)s.%(msecs)03d %(levelname)s: %(message)s', datefmt="%Y-%m-%d %H:%M:%S")
 start_pigpio()
 
