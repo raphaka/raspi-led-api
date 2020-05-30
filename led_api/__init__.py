@@ -27,6 +27,7 @@ if not os.path.isfile(api_dir + '/config.json'):
 if new_config_file:
     print('Please check/adjust the configuration and rerun the program to continue.')
     exit()
+print(api_dir + '/config.json')
 Glob.config = read_json(api_dir + '/config.json')
 logging.basicConfig(filename=Glob.config['log_file'],level=logging.DEBUG,
     format='%(asctime)s.%(msecs)03d %(levelname)s: %(message)s', datefmt="%Y-%m-%d %H:%M:%S")

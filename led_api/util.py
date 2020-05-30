@@ -1,5 +1,6 @@
 import json
 import sys
+import os
 import logging
 import threading
 
@@ -23,7 +24,8 @@ def write_json(outpath, data):
         sys.exit()
 
 def write_config():
-    return(write_json('config.json',Glob.config))
+    config_path = os.path.dirname(os.path.realpath(__file__)) + '/config.json'
+    return(write_json(config_path,Glob.config))
 
 def hex_2_rgb(str_colorhex): #throws ValueError
         r=int(str_colorhex[0:2],16)
