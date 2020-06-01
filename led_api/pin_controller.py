@@ -44,6 +44,7 @@ def set_color(red,green,blue):
 
 #fades to color
 def fade_to_color(start_color, target_color, duration): #duration in ms
+    log.debug("fading from " + start_color + " to " + target_color + " in " + str(duration))
     fade_start = datetime.now()
     period = 1000/Glob.config['fade_frequency']
     r,g,b = hex_2_rgb(start_color)

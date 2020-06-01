@@ -61,7 +61,9 @@ def effect_thread(effect: list):
         if (Glob.thread_stop == True):
             logging.info('Effect: Terminating - Stop flag has been set')
             return 1
+        log.debug("Effect: starting: " + str(effect))
         for el in effect:
+            log.debug("Effect: start element: " + str(el))
             if el['fade']:
                 if fade_to_color(curcolor, el['color'], el['duration']) == 1: #this returns 1 when thread_stop is set and 0 on success
                     return 1
@@ -70,3 +72,4 @@ def effect_thread(effect: list):
                 if fade_to_color(el['color'], el['color'], el['duration']) == 1: #this returns 1 when thread_stop is set and 0 on success
                     return 1
             curcolor = el['color']
+            log.debug("Effect: stop element: " + str(el))
