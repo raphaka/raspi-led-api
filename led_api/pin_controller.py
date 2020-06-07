@@ -31,9 +31,22 @@ def set_color(red,green,blue):
     c = Glob.config['contrast_adjustment']
     m = Glob.config['brightness_maximum']
     red = ((red/255) ** c)*m
+    if red > 255:
+        red = 255
+    if red < 0:
+        red = 0
     blue = ((blue/255) ** c)*m
+    if blue > 255:
+        blue = 255
+    if blue < 0:
+        blue = 0
     green = ((green/255) ** c)*m
+    if green > 255:
+        green = 255
+    if green < 0:
+        green = 0
     msg= 'setting output to:   r={0}, g={1}, b={2}'.format(red,green,blue)
+    log.debug(msg)
     if Glob.config['pins_enabled']:
         pi.set_PWM_dutycycle(Glob.config['pin_red'],red)
         pi.set_PWM_dutycycle(Glob.config['pin_green'],green)
@@ -62,8 +75,20 @@ def fade_to_color(start_color, target_color, duration): #duration in ms
                 logging.info('fade: Terminating - Stop flag has been set')
                 return 1
             r = r + step_r
+            if r > 255:
+                r = 255
+            if r < 0:
+                r = 0
             g = g + step_g
+            if g > 255:
+                g = 255
+            if g < 0:
+                g = 0
             b = b + step_b
+            if b > 255:
+                b = 255
+            if b < 0:
+                b = 0
             set_color(r,g,b)
             exec_time = datetime.now() - time_start
             if (periodseconds > exec_time.total_seconds()):
